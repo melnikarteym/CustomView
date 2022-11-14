@@ -4,4 +4,6 @@
         <attr name="profileAvatar" format="reference" />
         <attr name="profileUserName" format="string|reference" />
     </declare-styleable>
+
+    <attr name="profileStyle" format="reference" />
 </resources>

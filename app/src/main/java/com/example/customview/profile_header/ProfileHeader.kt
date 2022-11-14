@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,21 +14,19 @@ import com.example.customview.dpToPx
 class ProfileHeader @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
+    defStyleAttr: Int = R.attr.profileStyle,
+    defStyleRes: Int = R.style.DefaultProfileHeaderStyle,
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private lateinit var avatar: ImageView
     private lateinit var userName: TextView
 
     init {
-        /*
-        //magic
         gravity = Gravity.CENTER
         setPadding(PADDING_IN_DP.dpToPx(context))
-        */
         val inflatedView = inflate(context, R.layout.profile_header, this)
         initViews(inflatedView)
-        setupViewsIfNeeded(context, attrs)
+        setupViewsIfNeeded(context, attrs, defStyleAttr, defStyleRes)
     }
 
     fun render(profileHeaderData: ProfileHeaderData) {
@@ -42,9 +39,9 @@ class ProfileHeader @JvmOverloads constructor(
         userName = inflatedView.findViewById(R.id.profileName)
     }
 
-    private fun setupViewsIfNeeded(context: Context, attrs: AttributeSet?) {
+    private fun setupViewsIfNeeded(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
         if (attrs == null) return
-        context.obtainStyledAttributes(attrs, R.styleable.ProfileHeader, 0, 0).apply {
+        context.obtainStyledAttributes(attrs, R.styleable.ProfileHeader, defStyleAttr, defStyleRes).apply {
             avatar.setImageDrawable(getDrawable(R.styleable.ProfileHeader_profileAvatar))
             userName.text = getString(R.styleable.ProfileHeader_profileUserName)
         }
