@@ -20,6 +20,7 @@ class ProfileHeader @JvmOverloads constructor(
     init {
         val inflatedView = inflate(context, R.layout.profile_header, this)
         initViews(inflatedView)
+        setupViewsIfNeeded(context, attrs)
     }
 
     fun render(profileHeaderData: ProfileHeaderData) {
@@ -30,6 +31,14 @@ class ProfileHeader @JvmOverloads constructor(
     private fun initViews(inflatedView: View) {
         avatar = inflatedView.findViewById(R.id.profileAvatar)
         userName = inflatedView.findViewById(R.id.profileName)
+    }
+
+    private fun setupViewsIfNeeded(context: Context, attrs: AttributeSet?) {
+        if (attrs == null) return
+        context.obtainStyledAttributes(attrs, R.styleable.ProfileHeader, 0, 0).apply {
+            avatar.setImageDrawable(getDrawable(R.styleable.ProfileHeader_profileAvatar))
+            userName.text = getString(R.styleable.ProfileHeader_profileUserName)
+        }
     }
 }
 

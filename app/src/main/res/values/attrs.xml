@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ProfileHeader">
+        <attr name="profileAvatar" format="reference" />
+        <attr name="profileUserName" format="string|reference" />
+    </declare-styleable>
+</resources>
