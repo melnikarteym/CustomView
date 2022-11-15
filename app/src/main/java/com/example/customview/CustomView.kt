@@ -28,7 +28,7 @@ class CustomView @JvmOverloads constructor(
         }
     }
 
-    private val badgeRect = Rect(20, 20, 20, 20)
+    private val badgeRect = Rect(20, 20, 200, 20)
 
     private companion object {
 
