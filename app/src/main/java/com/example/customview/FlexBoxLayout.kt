@@ -8,8 +8,7 @@ import androidx.core.view.children
 class FlexBoxLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-) : ViewGroup(context, attrs, defStyleAttr) {
+) : ViewGroup(context, attrs) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val desireWidth = MeasureSpec.getSize(widthMeasureSpec)
@@ -32,7 +31,7 @@ class FlexBoxLayout @JvmOverloads constructor(
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        /*var currentLeft = l
+        var currentLeft = l
         var currentTop = t
         var maxHeightInRaw = 0
         children.forEach { child ->
@@ -47,6 +46,6 @@ class FlexBoxLayout @JvmOverloads constructor(
             }
             child.layout(currentLeft, currentTop, currentRight, currentTop + maxHeightInRaw)
             currentLeft += child.measuredWidth
-        }*/
+        }
     }
 }
