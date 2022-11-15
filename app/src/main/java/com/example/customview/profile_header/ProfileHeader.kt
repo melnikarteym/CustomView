@@ -45,8 +45,12 @@ class ProfileHeader @JvmOverloads constructor(
     private fun setupViewsIfNeeded(context: Context, attrs: AttributeSet?) {
         if (attrs == null) return
         context.obtainStyledAttributes(attrs, R.styleable.ProfileHeader, 0, 0).apply {
-            avatar.setImageDrawable(getDrawable(R.styleable.ProfileHeader_profileAvatar))
-            userName.text = getString(R.styleable.ProfileHeader_profileUserName)
+            try {
+                avatar.setImageDrawable(getDrawable(R.styleable.ProfileHeader_profileAvatar))
+                userName.text = getString(R.styleable.ProfileHeader_profileUserName)
+            } finally {
+                recycle()
+            }
         }
     }
 
