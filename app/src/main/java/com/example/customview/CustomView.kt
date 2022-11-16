@@ -1,12 +1,8 @@
 package com.example.customview
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.Rect
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 
 class CustomView @JvmOverloads constructor(
@@ -15,42 +11,30 @@ class CustomView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : View(context, attrs) {
 
-    private val paint = Paint().apply {
-        color = Color.BLUE
-        style = Paint.Style.STROKE
-        strokeWidth = 4F
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        logSpec("width", widthMeasureSpec)
+        logSpec("height", widthMeasureSpec)
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 
-    private val path = Path().apply {
-        repeat(8) { toothNumber ->
-            lineTo(toothNumber * TOOTH_WIDTH + TOOTH_WIDTH / 2, TOOTH_HEIGHT)
-            lineTo(toothNumber * TOOTH_WIDTH + TOOTH_WIDTH, 0F)
-        }
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        Log.d(
+            ON_LAYOUT_TAG,
+            "${context.resources.getResourceName(id)} onLayout -> changed=$changed, left=$left, top=$top, right=$right, bottom=$bottom"
+        )
     }
 
-    private val badgeRect = Rect(20, 20, 200, 20)
+    private fun logSpec(type: String, spec: Int) {
+        Log.d(
+            ON_MEASURE_TAG,
+            "${context.resources.getResourceName(id)} $type ${MeasureSpec.toString(spec)})"
+        )
+    }
 
     private companion object {
 
-
-        private const val TOOTH_WIDTH = 20F
-        private const val TOOTH_HEIGHT = 40F
-        private const val X_CENTER = 200F
-        private const val Y_CENTER = 200F
-        private const val RADIUS = 100F
-
-    }
-
-    override fun onDraw(canvas: Canvas) {
-
-
-        canvas.drawPath(path, paint)
-        canvas.drawCircle(X_CENTER, Y_CENTER, RADIUS, paint)
-        canvas.drawRect(badgeRect, paint)
-        canvas.drawPaint(paint)
-        canvas.drawText("Some text", 100F, 100F, paint)
-
-
+        private const val ON_MEASURE_TAG = "CustomView#onMeasure"
+        private const val ON_LAYOUT_TAG = "CustomView#onLayout"
     }
 }
 
